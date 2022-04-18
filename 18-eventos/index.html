@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Celke - eventos</title>
+    <style>
+        .contPers{
+            background-color: #00008b;
+            color: #fff;
+            width: 150px;
+            height: 50px;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Evento - onclick</h2>
+    <button onclick="carConteudo()">Carregar conteúdo</button>
+    <p id="conteudo"></p>
+
+    <h2>Eventos - onmouseover e onmouseout</h2>
+    <div onmouseover="mouseOver()" onmouseout="mouseOut()" class="contPers" id="mouseAlt">Passe o mouse</div>
+
+    <h2>Eventos - onchange e onkeyup</h2>
+    <form>
+        Nome: <input type="text" name="nome" id="nome" onchange="converTexto()"><br><br>
+
+        <div id="erroSenha"></div>
+        Senha: <input type="password" name="senha" id="senha" onkeyup="validarSenha()"><br><br>
+    </form>
+    
+    <script src="personalizado.js"></script>
+</body>
+</html>
