@@ -4,6 +4,25 @@ const app = express();
 
 app.use(express.json());
 
+/* 
+// Midware é acessado primeiro
+app.use((req, res, next) => {
+    console.log("acessou o midware");
+    next();
+}); 
+*/
+
+function valContato(req, res, next){
+    console.log("Validação do email : Acessou");
+    if(!req.body.email){
+         return res.json({
+             erro: true,
+             mensagem: "Necessario enviar o email"
+         });
+    };
+    return next();
+};
+
 app.get("/", (req, res) => {
     res.send("Bem vindo");
 });
@@ -24,7 +43,10 @@ app.get("/contato/:id", (req, res) => {
     });
 });
 
-app.post("/contato", (req, res) => {
+// 
+app.post("/contato", valContato, (req, res) => {
+    console.log("Acessou a rota Cadastrar");
+
     var {nome} = req.body;
     var {email} = req.body;
 
@@ -36,16 +58,25 @@ app.post("/contato", (req, res) => {
     });
 });
 
-app.put("/contato/:id", (res, req) => {
+app.put("/contato/:id", valContato, (res, req) => {
     const { id } = req.params;
-    const { nome, email } = req.body;
+    const { _id, nome, email } = req.body;
 
     return res.json({
         id,
+        _id,
         nome,
         email
     });
 });
+
+app.delete("/contato/:id", (req, res) => {
+    const { id } = req.params;
+
+    return res.json({
+        id
+    })
+})
 
 app.listen(8080, () => {
     console.log("Servidor iniciado na porta 8080");
